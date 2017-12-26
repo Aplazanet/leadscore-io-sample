@@ -19,9 +19,8 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      username: "",
+      email: "",
       password: "",
-      validityForm: true,
     };
   }
 
@@ -34,16 +33,8 @@ class LoginForm extends Component {
     });
   }
 
-  checkForm(){
-    const username=this.state.username;
-    const password=this.state.password;
-
-  }
-
   handleSubmit(e) {
-    this.checkForm();
-    console.log(this.state.username);
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(this.state.email, this.state.password);
     e.preventDefault();
   }
 
@@ -51,10 +42,6 @@ class LoginForm extends Component {
 
     if (this.props.redirect) {
       return <Redirect to="/contacts" />;
-    }
-
-    if (this.props.isConnected) {
-      return <strong>already connected</strong>;
     }
 
     var button;
@@ -66,10 +53,11 @@ class LoginForm extends Component {
     return (
       <Container>
         <Form className="loginForm">
-          <legend>Welcome to the Leadscore.io sample in ReactJS. Write your username and password to see your contacts :</legend>
+          <legend>Welcome to the Leadscore.io sample in ReactJS. Write your email and password to see your contacts :</legend>
           <span style={{color:'red',fontWeight:'bold'}}>{this.props.alertMsg}</span>
-          <Input type="email" label="Username" name="username" value={this.state.username} onChange={this.handleChange} required={true} floatingLabel={true} />
+          <Input type="email" label="Email" name="email" value={this.state.email} onChange={this.handleChange} required={true} floatingLabel={true} />
           <Input type="password" label="Password" name="password" value={this.state.password} onChange={this.handleChange} required={true} floatingLabel={true} />
+          <p style={{color:'red',fontWeight:'bold'}}>{this.props.errorMsg}</p>
           {button}
         </Form>
       </Container>

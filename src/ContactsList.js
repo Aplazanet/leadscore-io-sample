@@ -41,7 +41,6 @@ class ContactsList extends Component {
     var rows = [];
     this.state.contacts.forEach((contact) => {
       rows.push(<ContactRow key={contact.id} contact={contact}></ContactRow>);
-      console.log(contact.emails[0].email);
     })
 
     return (
@@ -49,7 +48,7 @@ class ContactsList extends Component {
         <table className="mui-table mui-table--bordered">
            <thead>
               <tr>
-                <th>Picture</th>
+                <th></th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Phone Number</th>

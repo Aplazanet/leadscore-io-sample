@@ -33,7 +33,8 @@ class App extends Component {
       redirect: false,
       isFormSubmitted: false,
       alertMsg: '',
-      isConnected: false
+      errorMsg: '',
+      isConnected: ''
     };
   }
 
@@ -41,6 +42,8 @@ class App extends Component {
     this.setState({
       redirect: false,
       isFormSubmitted: false,
+      alertMsg: '',
+      errorMsg: '',
       isConnected: false,
     });
     axios.defaults.headers.common['authToken']='';
@@ -68,7 +71,8 @@ class App extends Component {
     }).catch(function(error){
         that.setState({
           isFormSubmitted: false,
-          alertMsg: error.message
+          alertMsg: error.message,
+          errorMsg: 'Incorrect combinaison'
         })
     });
   }
@@ -80,7 +84,7 @@ class App extends Component {
         <Header isConnected={this.state.isConnected} logout={this.logout}></Header>
         <BrowserRouter>
           <div>
-            <Route path='/login' render={()=><LoginForm login={this.tryLogin} isFormSubmitted={this.state.isFormSubmitted} alertMsg={this.state.alertMsg} redirect={this.state.redirect}/>}></Route>
+            <Route path='/login' render={()=><LoginForm login={this.tryLogin} isFormSubmitted={this.state.isFormSubmitted} alertMsg={this.state.alertMsg} errorMsg={this.state.errorMsg} redirect={this.state.redirect} />}></Route>
             <PrivateRoute path='/contacts' component={ContactsList} />
             <PrivateRoute path='/protected' component={App} />
           </div>

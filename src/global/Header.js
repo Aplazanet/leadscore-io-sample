@@ -20,7 +20,6 @@ class Header extends Component {
   }
 
   render() {
-
   	let header;
   	if (this.props.isConnected) {
   		return (
