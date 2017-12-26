@@ -4,6 +4,7 @@ import './App.css';
 import axios from 'axios';
 
 import Header from './global/Header.js';
+import Home from './Home.js';
 import LoginForm from './LoginForm.js';
 import ContactsList from './ContactsList.js';
 
@@ -78,6 +79,7 @@ class App extends Component {
         <Header isConnected={this.state.isConnected} logout={this.logout}></Header>
         <BrowserRouter>
           <div>
+            <Route exact path='/' component={Home} />
             <Route path='/login' render={()=><LoginForm login={this.tryLogin} isFormSubmitted={this.state.isFormSubmitted} alertMsg={this.state.alertMsg} errorMsg={this.state.errorMsg} redirect={this.state.redirect} />}></Route>
             <PrivateRoute path='/contacts' component={ContactsList} />
           </div>
