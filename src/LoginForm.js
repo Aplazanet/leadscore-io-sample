@@ -22,7 +22,6 @@ class LoginForm extends Component {
       username: "",
       password: "",
       validityForm: true,
-      errorMsg: ""
     };
   }
 
@@ -54,6 +53,10 @@ class LoginForm extends Component {
       return <Redirect to="/contacts" />;
     }
 
+    if (this.props.isConnected) {
+      return <strong>already connected</strong>;
+    }
+
     var button;
     if (!this.props.isFormSubmitted) {
       button=<Button color="primary" variant="raised" onClick={this.handleSubmit}>Login</Button>;
@@ -67,7 +70,6 @@ class LoginForm extends Component {
           <span style={{color:'red',fontWeight:'bold'}}>{this.props.alertMsg}</span>
           <Input type="email" label="Username" name="username" value={this.state.username} onChange={this.handleChange} required={true} floatingLabel={true} />
           <Input type="password" label="Password" name="password" value={this.state.password} onChange={this.handleChange} required={true} floatingLabel={true} />
-          <span style={{color:'red',fontWeight:'bold'}}>{this.state.errorMsg}</span>
           {button}
         </Form>
       </Container>
