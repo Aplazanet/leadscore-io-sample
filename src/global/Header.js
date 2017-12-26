@@ -9,13 +9,35 @@ import Container from 'muicss/lib/react/container';
 
 class Header extends Component {
 
+  constructor(props)
+  {
+  	super(props);
+  	this.handleLogout=this.handleLogout.bind(this);
+  }
+
+  handleLogout(){
+  	this.props.logout();
+  }
+
   render() {
-    return (
-      <Appbar className="headerApp">
-        <img src={logo}/>
-        <h1><b>Lead</b>score</h1>
-      </Appbar>
-    );
+
+  	let header;
+  	if (this.props.isConnected) {
+  		return (
+  			<Appbar className="headerApp">
+	        	<img src={logo}/>
+	        	<h1><b>Lead</b>score</h1>
+	        	<Button color="danger" onClick={this.handleLogout}>Logout</Button>
+      		</Appbar>
+  		)	
+  	} else {
+  		return (
+  			<Appbar className="headerApp">
+	        	<img src={logo}/>
+	        	<h1><b>Lead</b>score</h1>
+      		</Appbar>
+  		)
+  	}
   }
 }
 

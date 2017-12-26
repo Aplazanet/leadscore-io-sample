@@ -14,21 +14,9 @@ import Header from './global/Header.js';
 
 import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100) // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100) // fake async
-  }
-}
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
+    axios.defaults.headers.common['authToken']
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />
@@ -40,11 +28,22 @@ class App extends Component {
   constructor(props){
     super(props);
     this.tryLogin = this.tryLogin.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
       redirect: false,
       isFormSubmitted: false,
-      alertMsg: ''
+      alertMsg: '',
+      isConnected: false
     };
+  }
+
+  logout(){
+    this.setState({
+      redirect: false,
+      isFormSubmitted: false,
+      isConnected: false,
+    });
+    axios.defaults.headers.common['authToken']='';
   }
 
   tryLogin(username, password){
@@ -63,7 +62,8 @@ class App extends Component {
         //put the token in the header
         axios.defaults.headers.common['authToken'] = response.data.token.authToken;
         that.setState({
-          redirect: true
+          redirect: true,
+          isConnected: true
         });
     }).catch(function(error){
         that.setState({
@@ -77,11 +77,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header></Header>
+        <Header isConnected={this.state.isConnected} logout={this.logout}></Header>
         <BrowserRouter>
           <div>
             <Route path='/login' render={()=><LoginForm login={this.tryLogin} isFormSubmitted={this.state.isFormSubmitted} alertMsg={this.state.alertMsg} redirect={this.state.redirect}/>}></Route>
-            <Route path='/contacts' component={ContactsList} />
+            <PrivateRoute path='/contacts' component={ContactsList} />
             <PrivateRoute path='/protected' component={App} />
           </div>
         </BrowserRouter>
