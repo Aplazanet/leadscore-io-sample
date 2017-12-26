@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 //HTTP Request library
-//Material Design
-import Appbar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
-import Container from 'muicss/lib/react/container';
-
-import Loader from './loader.gif';
-
 import axios from 'axios';
-
+//Material Design
+import Container from 'muicss/lib/react/container';
 import ContactRow from './ContactRow.js';
-
 
 class ContactsList extends Component {
 

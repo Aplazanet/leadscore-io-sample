@@ -3,14 +3,12 @@ import './LoginForm.css';
 //HTTP Request library
 import Loader from './loader.gif';
 //Material Design
-import Appbar from 'muicss/lib/react/appbar';
 import Button from 'muicss/lib/react/button';
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
-import Textarea from 'muicss/lib/react/textarea';
 
-import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class LoginForm extends Component {
 
@@ -48,7 +46,7 @@ class LoginForm extends Component {
     if (!this.props.isFormSubmitted) {
       button=<Button color="primary" variant="raised" onClick={this.handleSubmit}>Login</Button>;
     } else {
-      button=<img width='70px' height='70px' src={Loader} />;
+      button=<img width='70px' height='70px' src={Loader} alt="loader" />;
     }
     return (
       <Container>

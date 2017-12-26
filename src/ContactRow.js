@@ -3,11 +3,6 @@ import React, { Component } from 'react';
 import './ContactRow.css';
 
 import defaultPicture from './contactDefaultPicture.png';
-//Material Design
-import Appbar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
-import Container from 'muicss/lib/react/container';
-
 
 class ContactRow extends Component {
 
@@ -22,9 +17,9 @@ class ContactRow extends Component {
   render() {
     let picture;
     if (!this.state.contact.profilePicture) {
-      picture=<img className="profilePicture" src={defaultPicture} />;
+      picture=<img className="profilePicture" src={defaultPicture} alt="profile" />;
     } else {
-      picture=<img className="profilePicture" src={this.state.contact.profilePicture} />;
+      picture=<img className="profilePicture" src={this.state.contact.profilePicture} alt="profile" />;
     }
 
     return (

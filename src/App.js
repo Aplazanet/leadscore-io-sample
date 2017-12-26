@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 //HTTP Request library
 import axios from 'axios';
-//Material Design
-import Appbar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
-import Container from 'muicss/lib/react/container';
 
+import Header from './global/Header.js';
 import LoginForm from './LoginForm.js';
 import ContactsList from './ContactsList.js';
 
-import Header from './global/Header.js';
-
-import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -21,7 +16,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       : <Redirect to='/login' />
   )} />
 )
-
 
 class App extends Component {
 
@@ -86,7 +80,6 @@ class App extends Component {
           <div>
             <Route path='/login' render={()=><LoginForm login={this.tryLogin} isFormSubmitted={this.state.isFormSubmitted} alertMsg={this.state.alertMsg} errorMsg={this.state.errorMsg} redirect={this.state.redirect} />}></Route>
             <PrivateRoute path='/contacts' component={ContactsList} />
-            <PrivateRoute path='/protected' component={App} />
           </div>
         </BrowserRouter>
       </div>
