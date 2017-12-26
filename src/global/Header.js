@@ -25,14 +25,13 @@ class Header extends Component {
   	if (this.props.isConnected) {
   		return (
   			<Appbar className="headerApp">
-	        	<img src={logo}/>
-	        	<h1><b>Lead</b>score</h1>
+	        	<img src={logo} />
 	        	<Button color="danger" onClick={this.handleLogout}>Logout</Button>
       		</Appbar>
   		)	
   	} else {
   		return (
-  			<Appbar className="headerApp">
+  			<Appbar className="headerLogin">
 	        	<img src={logo}/>
 	        	<h1><b>Lead</b>score</h1>
       		</Appbar>
