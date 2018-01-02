@@ -5,6 +5,10 @@ import axios from 'axios';
 import Container from 'muicss/lib/react/container';
 import ContactRow from './ContactRow.js';
 
+import Cookies from 'universal-cookie';
+
+const cookies=new Cookies();
+
 class ContactsList extends Component {
 
   constructor(props)
@@ -17,6 +21,7 @@ class ContactsList extends Component {
 
   componentDidMount(){
     let that=this;
+    axios.defaults.headers.common['authToken']=cookies.get('authToken');
     axios.get('https://internal-api-staging-lb.interact.io/v2/contacts', 
       { 
         headers: {

@@ -9,13 +9,15 @@
     "muicss": "^0.9.35",
     "process": "^0.11.10",
     "react": "^16.2.0",
+    "react-cookie": "^2.1.2",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-stormpath": "^2.0.1",
-    "style-loader": "^0.19.1"
+    "style-loader": "^0.19.1",
+    "universal-cookie": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

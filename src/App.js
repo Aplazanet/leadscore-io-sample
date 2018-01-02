@@ -3,6 +3,8 @@ import './App.css';
 //HTTP Request library
 import axios from 'axios';
 
+import Cookies from 'universal-cookie';
+
 import Header from './global/Header.js';
 import Home from './Home.js';
 import LoginForm from './LoginForm.js';
@@ -10,9 +12,11 @@ import ContactsList from './ContactsList.js';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
+const cookies = new Cookies();
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    axios.defaults.headers.common['authToken']
+    cookies.get('authToken')
       ? <Component {...props} />
       : <Redirect to='/login' />
   )} />
@@ -25,11 +29,11 @@ class App extends Component {
     this.tryLogin = this.tryLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.state = {
-      redirect: false,
+      redirect: cookies.get('authToken') ? true : false,
       isFormSubmitted: false,
       alertMsg: '',
       errorMsg: '',
-      isConnected: ''
+      isConnected: cookies.get('authToken') ? true : false
     };
   }
 
@@ -41,7 +45,7 @@ class App extends Component {
       errorMsg: '',
       isConnected: false,
     });
-    axios.defaults.headers.common['authToken']='';
+    cookies.remove('authToken');
   }
 
   tryLogin(username, password){
@@ -58,7 +62,7 @@ class App extends Component {
       }
     }).then(function(response){
         //put the token in the header
-        axios.defaults.headers.common['authToken'] = response.data.token.authToken;
+        cookies.set('authToken', response.data.token.authToken);
         that.setState({
           redirect: true,
           isConnected: true
