@@ -10,25 +10,30 @@ class ContactRow extends Component {
     super(props);
 
     this.state={
-      contact: this.props.contact
+      contact: this.props.contact,
     }
   }
 
   render() {
+    let contact = this.state.contact;
     let picture;
-    if (!this.state.contact.profilePicture) {
+    if (!contact.profilePicture) {
       picture=<img className="profilePicture" src={defaultPicture} alt="profile" />;
     } else {
-      picture=<img className="profilePicture" src={this.state.contact.profilePicture} alt="profile" />;
+      picture=<img className="profilePicture" src={contact.profilePicture} alt="profile" />;
     }
+
+    // verify if no number of no email
+    const phoneNumber = contact.phoneNumbers ? contact.phoneNumbers[0].number : '';
+    const email = contact.emails ? contact.emails[0].email : '';
 
     return (
       <tr>
         <td>{picture}</td>
         <td>{this.state.contact.displayName}</td>
         <td>{this.state.contact.contactType}</td>
-        <td>{this.state.contact.phoneNumbers[0].number}</td>
-        <td>{this.state.contact.emails[0].email}</td>
+        <td>{phoneNumber}</td>
+        <td>{email}</td>
       </tr>
     );
   }
